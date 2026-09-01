@@ -1,7 +1,69 @@
 /* =============================================
-   ELEGANT & PROFESSIONAL AI ASSISTANT AVATAR
+   BEAUTIFUL 3D AI ASSISTANT AVATAR STYLES
    ============================================= */
 
+/* =============================================
+   PERSONA THEMES (Maya, Aria, Zen)
+   ============================================= */
+
+/* Maya (Default Warm Companion) */
+.avatar-face[data-persona="maya"],
+#cg-bubble-avatar[data-persona="maya"],
+#cg-bubble-avatar {
+  --hair-start: #FF758F;
+  --hair-mid: #FF4D6D;
+  --hair-end: #C77DFF;
+  --hair-shine: #FFB7C5;
+  --eye-light: #FFD166;
+  --eye-mid: #E76F51;
+  --eye-dark: #264653;
+  --brow-color: #C77DFF;
+  --accessory-color: #FFB703;
+  --avatar-glow1: #48BFB3;
+  --avatar-glow2: #2A9D8F;
+  --avatar-glow3: #1D3557;
+  --avatar-ring-color: #72EFDD;
+}
+
+/* Aria (Serene Pastel Expert) */
+.avatar-face[data-persona="aria"],
+#cg-bubble-avatar[data-persona="aria"] {
+  --hair-start: #B8C0FF;
+  --hair-mid: #C8B6FF;
+  --hair-end: #7209B7;
+  --hair-shine: #E7C6FF;
+  --eye-light: #90E0EF;
+  --eye-mid: #48CAE4;
+  --eye-dark: #03045E;
+  --brow-color: #7209B7;
+  --accessory-color: #F72585;
+  --avatar-glow1: #B8C0FF;
+  --avatar-glow2: #7209B7;
+  --avatar-glow3: #3F37C9;
+  --avatar-ring-color: #E7C6FF;
+}
+
+/* Zen (Tech Care Specialist) */
+.avatar-face[data-persona="zen"],
+#cg-bubble-avatar[data-persona="zen"] {
+  --hair-start: #4CC9F0;
+  --hair-mid: #4895EF;
+  --hair-end: #3F37C9;
+  --hair-shine: #90E0EF;
+  --eye-light: #72EFDD;
+  --eye-mid: #48BFB3;
+  --eye-dark: #10002B;
+  --brow-color: #4CC9F0;
+  --accessory-color: #00F5D4;
+  --avatar-glow1: #4CC9F0;
+  --avatar-glow2: #4361EE;
+  --avatar-glow3: #3A0CA3;
+  --avatar-ring-color: #00F5D4;
+}
+
+/* =============================================
+   AVATAR CONTAINER & SVG LAYOUT
+   ============================================= */
 .avatar-face {
   position: relative;
   width: 100%;
@@ -9,8 +71,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 6px 18px rgba(15, 23, 42, 0.25));
-  transition: all 0.35s ease;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.18));
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .avatar-face svg.avatar-svg,
@@ -22,121 +84,184 @@
 }
 
 /* =============================================
-   IDLE STATE — Subtle Breathing + Natural Blink
+   IDLE STATE — 3D Breathing, Sway & Sparkle
    ============================================= */
 .avatar-face.state-idle {
-  animation: profFloat 4s ease-in-out infinite;
-}
-
-.avatar-face.state-idle .avatar-eye-unit {
-  animation: profBlink 4.5s ease-in-out infinite;
+  animation: avatarFloat 3.6s ease-in-out infinite;
 }
 
 .avatar-face.state-idle .avatar-hair-strand-l {
-  animation: profHairSway 4s ease-in-out infinite;
-  transform-origin: 38px 48px;
+  animation: hairSwayLeft 3.6s ease-in-out infinite;
+  transform-origin: 40px 50px;
 }
 
 .avatar-face.state-idle .avatar-hair-strand-r {
-  animation: profHairSway 4s ease-in-out infinite reverse;
-  transform-origin: 122px 48px;
+  animation: hairSwayRight 3.6s ease-in-out infinite;
+  transform-origin: 120px 50px;
 }
 
-@keyframes profFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-2.5px); }
+.avatar-face.state-idle .avatar-eye-unit {
+  animation: eyeBlink 4.2s ease-in-out infinite;
 }
 
-@keyframes profHairSway {
+.avatar-face.state-idle .avatar-sparkles .sparkle-star {
+  animation: starTwinkle 2.5s ease-in-out infinite alternate;
+}
+
+.avatar-face.state-idle .sparkle-star.s2 {
+  animation-delay: 1.2s;
+}
+
+/* Keyframes for Idle floating */
+@keyframes avatarFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(0.8deg); }
+}
+
+@keyframes hairSwayLeft {
   0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(-3.5deg); }
 }
 
-@keyframes profBlink {
-  0%, 45%, 48%, 100% { transform: scaleY(1); }
-  46.5% { transform: scaleY(0.06); }
+@keyframes hairSwayRight {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3.5deg); }
+}
+
+@keyframes eyeBlink {
+  0%, 42%, 46%, 100% { transform: scaleY(1); }
+  44% { transform: scaleY(0.08); }
+}
+
+@keyframes starTwinkle {
+  0% { transform: scale(0.7) rotate(0deg); opacity: 0.3; }
+  100% { transform: scale(1.25) rotate(45deg); opacity: 1; }
 }
 
 /* =============================================
-   LISTENING STATE — Attentive Look + Pulse Ring
+   LISTENING STATE — Attentive Forward Tilt + Ring
    ============================================= */
 .avatar-face.state-listening {
-  animation: profListeningFocus 1.8s ease-in-out infinite alternate;
+  animation: listeningPulseHead 1.6s ease-in-out infinite alternate;
 }
 
 .avatar-face.state-listening .avatar-pulse-ring {
   opacity: 1;
-  animation: profRingPulse 1.5s ease-in-out infinite;
+  animation: auraPulse 1.4s ease-in-out infinite;
 }
 
-.avatar-face.state-listening .avatar-brow-left,
+.avatar-face.state-listening .avatar-brow-left {
+  transform: translateY(-4px) rotate(-3deg);
+}
+
 .avatar-face.state-listening .avatar-brow-right {
-  transform: translateY(-2px);
+  transform: translateY(-4px) rotate(3deg);
 }
 
-@keyframes profListeningFocus {
+.avatar-face.state-listening .avatar-eye-unit {
+  animation: none;
+  transform: scaleY(1.05);
+}
+
+.avatar-face.state-listening .avatar-mouth {
+  d: path("M 72 108 Q 80 114 88 108");
+}
+
+@keyframes listeningPulseHead {
   0% { transform: scale(1) translateY(0); }
-  100% { transform: scale(1.025) translateY(-2px); }
+  100% { transform: scale(1.04) translateY(-3px); }
 }
 
-@keyframes profRingPulse {
+@keyframes auraPulse {
   0% { r: 74; stroke-width: 2.5; opacity: 0.8; }
-  50% { r: 78; stroke-width: 3.5; opacity: 0.35; }
+  50% { r: 79; stroke-width: 4; opacity: 0.3; }
   100% { r: 74; stroke-width: 2.5; opacity: 0.8; }
 }
 
 /* =============================================
-   SPEAKING STATE — Natural Lip-Sync
+   SPEAKING STATE — Lip-sync Mouth Morphing
    ============================================= */
 .avatar-face.state-speaking {
-  animation: profSpeakNod 0.7s ease-in-out infinite alternate;
+  animation: speakingHeadBob 0.6s ease-in-out infinite alternate;
 }
 
 .avatar-face.state-speaking .avatar-mouth {
-  animation: profLipSync 0.26s ease-in-out infinite alternate;
+  animation: lipSyncMouth 0.28s ease-in-out infinite alternate;
+}
+
+.avatar-face.state-speaking .avatar-mouth-teeth {
+  animation: lipSyncTeeth 0.28s ease-in-out infinite alternate;
 }
 
 .avatar-face.state-speaking .avatar-eye-unit {
-  animation: profBlink 5s ease-in-out infinite;
+  animation: eyeBlink 5s ease-in-out infinite;
 }
 
-@keyframes profSpeakNod {
+.avatar-face.state-speaking .avatar-hair-strand-l,
+.avatar-face.state-speaking .avatar-hair-strand-r {
+  animation: hairBounceTalk 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes speakingHeadBob {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-3px) rotate(1.2deg); }
+}
+
+@keyframes lipSyncMouth {
+  0% { d: path("M 70 108 Q 80 113 90 108"); }
+  50% { d: path("M 66 106 Q 80 124 94 106"); }
+  100% { d: path("M 68 105 Q 80 118 92 105"); }
+}
+
+@keyframes lipSyncTeeth {
+  0% { opacity: 0.3; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(1px); }
+}
+
+@keyframes hairBounceTalk {
   0% { transform: translateY(0); }
   100% { transform: translateY(-2px); }
 }
 
-@keyframes profLipSync {
-  0% { d: path("M 68 102 Q 80 108 92 102"); }
-  100% { d: path("M 66 101 Q 80 116 94 101"); }
-}
-
 /* =============================================
-   THINKING STATE — Subtle Eye Glance
+   THINKING STATE — Curious Glance Upwards
    ============================================= */
 .avatar-face.state-thinking .avatar-pupil-left,
 .avatar-face.state-thinking .avatar-pupil-right {
-  animation: profThinkingGlance 2.4s ease-in-out infinite;
+  animation: thinkingGlance 2.2s ease-in-out infinite;
 }
 
-@keyframes profThinkingGlance {
+.avatar-face.state-thinking .avatar-brow-left {
+  transform: translateY(-2px) rotate(4deg);
+}
+
+.avatar-face.state-thinking .avatar-brow-right {
+  transform: translateY(-5px) rotate(-3deg);
+}
+
+.avatar-face.state-thinking .avatar-mouth {
+  d: path("M 72 109 Q 80 106 88 109");
+}
+
+@keyframes thinkingGlance {
   0%, 100% { transform: translate(0, 0); }
-  35% { transform: translate(2.5px, -2px); }
-  70% { transform: translate(-2px, -1.5px); }
+  35% { transform: translate(3px, -4px); }
+  70% { transform: translate(-3px, -3px); }
 }
 
-/* Thinking dots overlay */
+/* Thinking dots overlay styling */
 .avatar-thinking-dots {
   display: none;
   position: absolute;
-  bottom: -6px;
+  bottom: -4px;
   left: 50%;
   transform: translateX(-50%);
   gap: 5px;
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   padding: 4px 10px;
   border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  backdrop-filter: blur(4px);
   z-index: 10;
 }
 
@@ -145,54 +270,118 @@
 }
 
 .avatar-thinking-dots .dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #2DD4BF;
-  animation: profDotBounce 1.2s ease-in-out infinite;
+  background: var(--hair-mid, #FF4D6D);
+  animation: dotBounce 1.2s ease-in-out infinite;
 }
 
 .avatar-thinking-dots .dot:nth-child(2) { animation-delay: 0.15s; }
 .avatar-thinking-dots .dot:nth-child(3) { animation-delay: 0.3s; }
 
-@keyframes profDotBounce {
+@keyframes dotBounce {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-4px); opacity: 1; }
+  30% { transform: translateY(-5px); opacity: 1; }
 }
 
 /* =============================================
-   GREETING STATE — Reassuring Smile & Subtle Nod
+   GREETING STATE — Joyful Wink & Bounce Burst
    ============================================= */
 .avatar-face.state-greeting {
-  animation: profGreetingNod 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: joyfulGreeting 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes profGreetingNod {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.06) translateY(-3px); }
-  100% { transform: scale(1); }
+.avatar-face.state-greeting .avatar-eye-right-unit {
+  transform: scaleY(0.1) !important;
 }
 
-/* Pulse Ring Transition */
-.avatar-pulse-ring {
-  transition: opacity 0.3s ease;
+.avatar-face.state-greeting .avatar-mouth {
+  d: path("M 64 104 Q 80 128 96 104");
+  fill: #FF4D6D;
 }
+
+@keyframes joyfulGreeting {
+  0% { transform: scale(1) rotate(0); }
+  40% { transform: scale(1.15) rotate(-6deg); }
+  70% { transform: scale(0.95) rotate(3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* =============================================
+   PERSONA SWITCHER BAR STYLING
+   ============================================= */
+.cg-persona-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 8px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.persona-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.persona-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.persona-btn.active {
+  background: #FFFFFF;
+  color: #1A3A4B;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.persona-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.maya-dot { background: linear-gradient(135deg, #FF758F, #FFB703); }
+.aria-dot { background: linear-gradient(135deg, #C8B6FF, #722F37); }
+.zen-dot  { background: linear-gradient(135deg, #4CC9F0, #48BFB3); }
 
 /* SVG Transitions */
 .avatar-mouth,
 .avatar-brow-left,
 .avatar-brow-right,
 .avatar-pupil-left,
-.avatar-pupil-right {
-  transition: d 0.25s ease, transform 0.25s ease;
+.avatar-pupil-right,
+.avatar-hair-strand-l,
+.avatar-hair-strand-r {
+  transition: d 0.3s ease, transform 0.3s ease, fill 0.3s ease;
 }
 
-/* Reduced Motion */
+/* =============================================
+   REDUCED MOTION SUPPORT
+   ============================================= */
 @media (prefers-reduced-motion: reduce) {
   .avatar-face,
+  .avatar-face .avatar-hair-strand-l,
+  .avatar-face .avatar-hair-strand-r,
   .avatar-face .avatar-eye-unit,
   .avatar-face .avatar-pulse-ring,
-  .avatar-face .avatar-mouth {
+  .avatar-face .avatar-sparkles .sparkle-star {
     animation: none !important;
   }
 }

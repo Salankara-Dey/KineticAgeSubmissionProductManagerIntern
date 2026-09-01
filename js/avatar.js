@@ -1,8 +1,8 @@
 /**
- * CareGuide Professional Avatar Controller
+ * CareGuide Avatar Controller — 3D Character Engine
  * ====================================================
- * Controls SVG facial expressions, interactive pupil glance,
- * and natural speech lip sync.
+ * Controls SVG facial expressions, interactive eye tracking,
+ * persona switching (Maya, Aria, Zen), and speech lip sync.
  */
 
 const CareGuideAvatar = (() => {
@@ -10,20 +10,51 @@ const CareGuideAvatar = (() => {
   let bubbleAvatarEl = null;
   let titleEl = null;
   let currentState = 'idle';
+  let currentPersona = 'maya';
   let lipSyncInterval = null;
 
   const STATES = ['idle', 'listening', 'speaking', 'thinking', 'greeting'];
+  const PERSONAS = {
+    maya: { name: 'Maya • Companion', desc: 'Warm & Helpful' },
+    aria: { name: 'Aria • Expert', desc: 'Serene & Precise' },
+    zen: { name: 'Zen • Specialist', desc: 'Tech & Speed' }
+  };
 
   function init() {
     avatarEl = document.getElementById('cg-avatar');
     bubbleAvatarEl = document.getElementById('cg-bubble-avatar');
     titleEl = document.getElementById('cg-avatar-name');
 
+    // Attach persona button listeners
+    const buttons = document.querySelectorAll('.persona-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const persona = btn.getAttribute('data-persona');
+        if (persona) {
+          setPersona(persona);
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+      });
+    });
+
     // Eye tracking mousemove listener on panel
     const panel = document.getElementById('cg-panel');
     if (panel) {
       panel.addEventListener('mousemove', handleMouseMove);
     }
+  }
+
+  function setPersona(persona) {
+    if (!PERSONAS[persona]) return;
+    currentPersona = persona;
+
+    if (avatarEl) avatarEl.setAttribute('data-persona', persona);
+    if (bubbleAvatarEl) bubbleAvatarEl.setAttribute('data-persona', persona);
+    if (titleEl) titleEl.textContent = PERSONAS[persona].name;
+
+    // Trigger visual pop animation when switching persona
+    greet();
   }
 
   function setState(state) {
@@ -57,17 +88,17 @@ const CareGuideAvatar = (() => {
     if (!mouthPath) return;
 
     const shapes = [
-      'M 66 102 Q 80 114 94 102', // Smile
-      'M 68 101 Q 80 108 92 101', // Natural small open
-      'M 65 102 Q 80 118 95 102', // Slightly wider open
-      'M 67 101 Q 80 110 93 101'  // Neutral talk
+      'M 68 106 Q 80 122 92 106', // Open smile "Ah"
+      'M 72 108 Q 80 114 88 108', // Small "Oh"
+      'M 66 104 Q 80 126 94 104', // Wide "Ee"
+      'M 70 108 Q 80 118 90 108'  // Neutral talk
     ];
 
     let index = 0;
     lipSyncInterval = setInterval(() => {
       index = (index + 1) % shapes.length;
       mouthPath.setAttribute('d', shapes[index]);
-    }, 190);
+    }, 180);
   }
 
   function handleMouseMove(e) {
@@ -78,12 +109,12 @@ const CareGuideAvatar = (() => {
     const avatarCenterX = rect.left + rect.width / 2;
     const avatarCenterY = rect.top + rect.height / 2;
 
-    const deltaX = (e.clientX - avatarCenterX) / 35;
-    const deltaY = (e.clientY - avatarCenterY) / 35;
+    const deltaX = (e.clientX - avatarCenterX) / 25;
+    const deltaY = (e.clientY - avatarCenterY) / 25;
 
-    // Clamp offset range for subtle natural glance
-    const clampX = Math.max(-2.5, Math.min(2.5, deltaX));
-    const clampY = Math.max(-2.0, Math.min(2.0, deltaY));
+    // Clamp offset range
+    const clampX = Math.max(-4, Math.min(4, deltaX));
+    const clampY = Math.max(-3, Math.min(3, deltaY));
 
     const pupilsLeft = avatarEl.querySelectorAll('.avatar-pupil-left');
     const pupilsRight = avatarEl.querySelectorAll('.avatar-pupil-right');
@@ -107,21 +138,27 @@ const CareGuideAvatar = (() => {
       if (currentState === 'greeting') {
         setState('idle');
       }
-    }, 700);
+    }, 850);
   }
 
   function getState() {
     return currentState;
   }
 
+  function getPersona() {
+    return currentPersona;
+  }
+
   return {
     init,
     setState,
+    setPersona,
     idle,
     listening,
     speaking,
     thinking,
     greet,
-    getState
+    getState,
+    getPersona
   };
 })();
