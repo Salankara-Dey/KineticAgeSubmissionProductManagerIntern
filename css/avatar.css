@@ -1,143 +1,143 @@
 /* =============================================
-   AVATAR FACE — SVG ANIMATIONS
+   ELEGANT & PROFESSIONAL AI ASSISTANT AVATAR
    ============================================= */
 
-/* Container */
 .avatar-face {
   position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  filter: drop-shadow(0 6px 18px rgba(15, 23, 42, 0.25));
+  transition: all 0.35s ease;
 }
 
-.avatar-face svg {
+.avatar-face svg.avatar-svg,
+.cg-bubble-avatar svg.avatar-svg {
   width: 100%;
   height: 100%;
   display: block;
+  overflow: visible;
 }
 
 /* =============================================
-   IDLE STATE — Gentle bobbing + blinking
+   IDLE STATE — Subtle Breathing + Natural Blink
    ============================================= */
 .avatar-face.state-idle {
-  animation: avatarBob 3s ease-in-out infinite;
+  animation: profFloat 4s ease-in-out infinite;
 }
 
-.avatar-face.state-idle .avatar-eye-lid {
-  animation: avatarBlink 4s ease-in-out infinite;
+.avatar-face.state-idle .avatar-eye-unit {
+  animation: profBlink 4.5s ease-in-out infinite;
 }
 
-@keyframes avatarBob {
+.avatar-face.state-idle .avatar-hair-strand-l {
+  animation: profHairSway 4s ease-in-out infinite;
+  transform-origin: 38px 48px;
+}
+
+.avatar-face.state-idle .avatar-hair-strand-r {
+  animation: profHairSway 4s ease-in-out infinite reverse;
+  transform-origin: 122px 48px;
+}
+
+@keyframes profFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+  50% { transform: translateY(-2.5px); }
 }
 
-@keyframes avatarBlink {
-  0%, 42%, 46%, 100% { transform: scaleY(1); }
-  44% { transform: scaleY(0.05); }
+@keyframes profHairSway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-1.5deg); }
+}
+
+@keyframes profBlink {
+  0%, 45%, 48%, 100% { transform: scaleY(1); }
+  46.5% { transform: scaleY(0.06); }
 }
 
 /* =============================================
-   LISTENING STATE — Attentive look + pulse ring
+   LISTENING STATE — Attentive Look + Pulse Ring
    ============================================= */
+.avatar-face.state-listening {
+  animation: profListeningFocus 1.8s ease-in-out infinite alternate;
+}
+
 .avatar-face.state-listening .avatar-pulse-ring {
   opacity: 1;
-  animation: listeningPulse 1.5s ease-in-out infinite;
+  animation: profRingPulse 1.5s ease-in-out infinite;
 }
 
-.avatar-face.state-listening .avatar-brow-left {
-  animation: browRaiseLeft 0.4s var(--ease-out, ease-out) forwards;
-}
-
+.avatar-face.state-listening .avatar-brow-left,
 .avatar-face.state-listening .avatar-brow-right {
-  animation: browRaiseRight 0.4s var(--ease-out, ease-out) forwards;
+  transform: translateY(-2px);
 }
 
-.avatar-face.state-listening .avatar-eye-lid {
-  animation: none;
+@keyframes profListeningFocus {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.025) translateY(-2px); }
 }
 
-@keyframes listeningPulse {
-  0% { r: 58; opacity: 0.4; }
-  50% { r: 63; opacity: 0.15; }
-  100% { r: 58; opacity: 0.4; }
-}
-
-@keyframes browRaiseLeft {
-  to { transform: translateY(-3px); }
-}
-
-@keyframes browRaiseRight {
-  to { transform: translateY(-3px); }
+@keyframes profRingPulse {
+  0% { r: 74; stroke-width: 2.5; opacity: 0.8; }
+  50% { r: 78; stroke-width: 3.5; opacity: 0.35; }
+  100% { r: 74; stroke-width: 2.5; opacity: 0.8; }
 }
 
 /* =============================================
-   SPEAKING STATE — Mouth animation + head nod
+   SPEAKING STATE — Natural Lip-Sync
    ============================================= */
 .avatar-face.state-speaking {
-  animation: speakingNod 0.8s ease-in-out infinite;
+  animation: profSpeakNod 0.7s ease-in-out infinite alternate;
 }
 
 .avatar-face.state-speaking .avatar-mouth {
-  animation: mouthSpeak 0.35s ease-in-out infinite alternate;
+  animation: profLipSync 0.26s ease-in-out infinite alternate;
 }
 
-.avatar-face.state-speaking .avatar-mouth-fill {
-  animation: mouthFillSpeak 0.35s ease-in-out infinite alternate;
+.avatar-face.state-speaking .avatar-eye-unit {
+  animation: profBlink 5s ease-in-out infinite;
 }
 
-.avatar-face.state-speaking .avatar-eye-lid {
-  animation: avatarBlink 5s ease-in-out infinite;
+@keyframes profSpeakNod {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-2px); }
 }
 
-@keyframes speakingNod {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(0.5deg); }
-  75% { transform: rotate(-0.5deg); }
-}
-
-@keyframes mouthSpeak {
-  0% { d: path("M42 76 Q60 82 78 76"); }
-  100% { d: path("M44 76 Q60 88 76 76"); }
-}
-
-@keyframes mouthFillSpeak {
-  0% {
-    d: path("M42 76 Q60 82 78 76 Q60 80 42 76");
-    opacity: 0;
-  }
-  100% {
-    d: path("M44 76 Q60 88 76 76 Q60 82 44 76");
-    opacity: 0.2;
-  }
+@keyframes profLipSync {
+  0% { d: path("M 68 102 Q 80 108 92 102"); }
+  100% { d: path("M 66 101 Q 80 116 94 101"); }
 }
 
 /* =============================================
-   THINKING STATE — Look to side + dots
+   THINKING STATE — Subtle Eye Glance
    ============================================= */
 .avatar-face.state-thinking .avatar-pupil-left,
 .avatar-face.state-thinking .avatar-pupil-right {
-  animation: thinkingLook 2s ease-in-out infinite;
+  animation: profThinkingGlance 2.4s ease-in-out infinite;
 }
 
-.avatar-face.state-thinking .avatar-eye-lid {
-  animation: avatarBlink 3s ease-in-out infinite;
+@keyframes profThinkingGlance {
+  0%, 100% { transform: translate(0, 0); }
+  35% { transform: translate(2.5px, -2px); }
+  70% { transform: translate(-2px, -1.5px); }
 }
 
-@keyframes thinkingLook {
-  0%, 100% { transform: translateX(0); }
-  30% { transform: translateX(3px); }
-  70% { transform: translateX(-2px); }
-}
-
-/* Thinking dots indicator */
+/* Thinking dots overlay */
 .avatar-thinking-dots {
   display: none;
   position: absolute;
-  bottom: 8px;
+  bottom: -6px;
   left: 50%;
   transform: translateX(-50%);
-  gap: 4px;
+  gap: 5px;
+  background: rgba(15, 23, 42, 0.85);
+  padding: 4px 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  backdrop-filter: blur(6px);
+  z-index: 10;
 }
 
 .avatar-face.state-thinking .avatar-thinking-dots {
@@ -148,76 +148,51 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-primary, #2A9D8F);
-  animation: thinkingDotBounce 1.2s ease-in-out infinite;
+  background: #2DD4BF;
+  animation: profDotBounce 1.2s ease-in-out infinite;
 }
 
-.avatar-thinking-dots .dot:nth-child(2) {
-  animation-delay: 0.15s;
-}
+.avatar-thinking-dots .dot:nth-child(2) { animation-delay: 0.15s; }
+.avatar-thinking-dots .dot:nth-child(3) { animation-delay: 0.3s; }
 
-.avatar-thinking-dots .dot:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-@keyframes thinkingDotBounce {
+@keyframes profDotBounce {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-6px); opacity: 1; }
+  30% { transform: translateY(-4px); opacity: 1; }
 }
 
 /* =============================================
-   GREETING STATE — Wave / bounce
+   GREETING STATE — Reassuring Smile & Subtle Nod
    ============================================= */
 .avatar-face.state-greeting {
-  animation: greetingBounce 0.6s var(--ease-out, ease-out);
+  animation: profGreetingNod 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes greetingBounce {
+@keyframes profGreetingNod {
   0% { transform: scale(1); }
-  30% { transform: scale(1.08); }
-  60% { transform: scale(0.97); }
+  40% { transform: scale(1.06) translateY(-3px); }
   100% { transform: scale(1); }
 }
 
-/* =============================================
-   PULSE RING (around avatar for listening)
-   ============================================= */
+/* Pulse Ring Transition */
 .avatar-pulse-ring {
-  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* =============================================
-   GLOBAL AVATAR TRANSITIONS
-   ============================================= */
+/* SVG Transitions */
 .avatar-mouth,
-.avatar-mouth-fill,
 .avatar-brow-left,
 .avatar-brow-right,
 .avatar-pupil-left,
 .avatar-pupil-right {
-  transition: all 0.3s ease;
+  transition: d 0.25s ease, transform 0.25s ease;
 }
 
-/* Eye lids (for blinking) — transform origin at center */
-.avatar-eye-lid {
-  transform-origin: center center;
-}
-
-/* =============================================
-   REDUCED MOTION
-   ============================================= */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .avatar-face,
-  .avatar-face .avatar-eye-lid,
-  .avatar-face .avatar-mouth,
-  .avatar-face .avatar-mouth-fill,
+  .avatar-face .avatar-eye-unit,
   .avatar-face .avatar-pulse-ring,
-  .avatar-face .avatar-pupil-left,
-  .avatar-face .avatar-pupil-right,
-  .avatar-face .avatar-brow-left,
-  .avatar-face .avatar-brow-right,
-  .avatar-thinking-dots .dot {
+  .avatar-face .avatar-mouth {
     animation: none !important;
   }
 }

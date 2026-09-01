@@ -105,27 +105,46 @@
 
   <!-- Floating bubble (collapsed) -->
   <div class="cg-widget-bubble" id="cg-bubble" role="button" tabindex="0" aria-label="Open CareGuide voice assistant">
-    <div class="cg-bubble-avatar">
-      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <div class="cg-bubble-avatar" id="cg-bubble-avatar">
+      <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" class="avatar-svg">
         <defs>
-          <linearGradient id="bubbleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#2A9D8F"/>
-            <stop offset="100%" stop-color="#48BFB3"/>
+          <radialGradient id="bubbleProfAura" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#0D9488" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#1E3A8A" stop-opacity="0.3"/>
+          </radialGradient>
+          <linearGradient id="bProfHair" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2D3748"/>
+            <stop offset="100%" stop-color="#1A202C"/>
+          </linearGradient>
+          <linearGradient id="bProfSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFF5F5"/>
+            <stop offset="100%" stop-color="#FED7D7"/>
           </linearGradient>
         </defs>
-        <circle cx="60" cy="60" r="55" fill="url(#bubbleGrad)"/>
-        <ellipse cx="44" cy="52" rx="6" ry="7" fill="white"/>
-        <circle cx="44" cy="53" r="3.5" fill="#264653"/>
-        <ellipse cx="76" cy="52" rx="6" ry="7" fill="white"/>
-        <circle cx="76" cy="53" r="3.5" fill="#264653"/>
-        <path d="M44 74 Q60 86 76 74" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <circle cx="34" cy="66" r="6" fill="white" opacity="0.15"/>
-        <circle cx="86" cy="66" r="6" fill="white" opacity="0.15"/>
+        <circle cx="80" cy="80" r="76" fill="url(#bubbleProfAura)"/>
+        <!-- Professional Hair Back -->
+        <path d="M 36 60 C 22 80 24 130 46 142 L 114 142 C 136 130 138 80 124 60 Z" fill="url(#bProfHair)"/>
+        <!-- Face & Neck -->
+        <path d="M 72 118 L 88 118 L 92 135 C 80 138 80 138 68 135 Z" fill="#FED7D7"/>
+        <ellipse cx="80" cy="84" rx="34" ry="38" fill="url(#bProfSkin)"/>
+        <!-- Professional Blazer -->
+        <path d="M 40 142 C 55 130 68 126 80 135 C 92 126 105 130 120 142 L 132 160 L 28 160 Z" fill="#0D9488"/>
+        <!-- Eyes -->
+        <ellipse cx="63" cy="80" rx="7" ry="8" fill="#FFFFFF"/>
+        <circle cx="63" cy="81" r="5" fill="#2B6CB0"/>
+        <circle cx="61" cy="79" r="1.8" fill="#FFFFFF"/>
+        <ellipse cx="97" cy="80" rx="7" ry="8" fill="#FFFFFF"/>
+        <circle cx="97" cy="81" r="5" fill="#2B6CB0"/>
+        <circle cx="95" cy="79" r="1.8" fill="#FFFFFF"/>
+        <!-- Smile -->
+        <path d="M 68 100 Q 80 110 92 100" stroke="#9B2C2C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Hair Front -->
+        <path d="M 38 62 C 36 34 58 24 80 24 C 102 24 124 34 122 62 C 112 40 94 38 80 44 C 66 38 48 40 38 62 Z" fill="url(#bProfHair)"/>
       </svg>
     </div>
     <div class="cg-bubble-text">
-      Need help?
-      <span class="sub">Ask CareGuide</span>
+      Need assistance?
+      <span class="sub">Ask CareGuide AI</span>
     </div>
   </div>
 
@@ -135,56 +154,124 @@
     <!-- Panel header -->
     <div class="cg-panel-header">
       <div class="cg-panel-avatar">
-        <div class="avatar-face state-idle" id="cg-avatar">
-          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <div class="avatar-face state-idle" id="cg-avatar" data-persona="maya">
+          <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" class="avatar-svg">
             <defs>
-              <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#2A9D8F"/>
-                <stop offset="100%" stop-color="#48BFB3"/>
+              <radialGradient id="profAuraGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#0D9488" stop-opacity="0.8"/>
+                <stop offset="70%" stop-color="#1E3A8A" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#0F172A" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="profSkinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFF5F5"/>
+                <stop offset="75%" stop-color="#FED7D7"/>
+                <stop offset="100%" stop-color="#FBBF24" stop-opacity="0.3"/>
               </linearGradient>
+              <linearGradient id="profHairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2D3748"/>
+                <stop offset="50%" stop-color="#1A202C"/>
+                <stop offset="100%" stop-color="#111827"/>
+              </linearGradient>
+              <linearGradient id="profBlazerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0D9488"/>
+                <stop offset="100%" stop-color="#0F766E"/>
+              </linearGradient>
+              <linearGradient id="profLapelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#111827"/>
+                <stop offset="100%" stop-color="#1E293B"/>
+              </linearGradient>
+              <radialGradient id="profIrisGrad" cx="40%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#6366F1"/>
+                <stop offset="60%" stop-color="#1E3A8A"/>
+                <stop offset="100%" stop-color="#0F172A"/>
+              </radialGradient>
             </defs>
 
-            <!-- Background -->
-            <circle cx="60" cy="60" r="55" fill="url(#avatarGrad)"/>
+            <!-- Outer Pulse Status Ring -->
+            <circle class="avatar-aura-bg" cx="80" cy="80" r="76" fill="url(#profAuraGrad)"/>
+            <circle class="avatar-pulse-ring" cx="80" cy="80" r="74" fill="none" stroke="#2DD4BF" stroke-width="2.5" opacity="0.7"/>
 
-            <!-- Pulse ring (for listening) -->
-            <circle class="avatar-pulse-ring" cx="60" cy="60" r="58" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-
-            <!-- Headset band -->
-            <path d="M22 52 Q22 22 60 16 Q98 22 98 52" stroke="rgba(255,255,255,0.25)" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <rect x="14" y="46" width="12" height="16" rx="4" fill="rgba(255,255,255,0.2)"/>
-            <rect x="94" y="46" width="12" height="16" rx="4" fill="rgba(255,255,255,0.2)"/>
-
-            <!-- Microphone arm -->
-            <path d="M16 58 Q10 68 28 78" stroke="rgba(255,255,255,0.2)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <circle cx="29" cy="79" r="4" fill="#E76F51"/>
-
-            <!-- Eyes -->
-            <g class="avatar-eye-lid" style="transform-origin: 44px 52px">
-              <ellipse class="avatar-eye-left" cx="44" cy="52" rx="7" ry="8" fill="white"/>
-              <circle class="avatar-pupil-left" cx="44" cy="53" r="4" fill="#264653"/>
-              <circle cx="42" cy="50" r="1.5" fill="rgba(255,255,255,0.7)"/>
-            </g>
-            <g class="avatar-eye-lid" style="transform-origin: 76px 52px">
-              <ellipse class="avatar-eye-right" cx="76" cy="52" rx="7" ry="8" fill="white"/>
-              <circle class="avatar-pupil-right" cx="76" cy="53" r="4" fill="#264653"/>
-              <circle cx="74" cy="50" r="1.5" fill="rgba(255,255,255,0.7)"/>
+            <!-- Hair Back -->
+            <g class="avatar-hair-back">
+              <path d="M 34 58 C 18 78 20 128 44 144 L 116 144 C 140 128 142 78 126 58 Z" fill="url(#profHairGrad)"/>
             </g>
 
-            <!-- Eyebrows -->
-            <path class="avatar-brow-left" d="M34 42 Q44 36 54 42" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path class="avatar-brow-right" d="M66 42 Q76 36 86 42" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- Neck & Collar Bone -->
+            <path class="avatar-neck" d="M 70 114 L 90 114 L 94 134 C 80 138 80 138 66 134 Z" fill="#FED7D7"/>
+            <path d="M 72 120 Q 80 124 88 120" stroke="#E53E3E" stroke-width="1" opacity="0.3" fill="none"/>
 
-            <!-- Nose -->
-            <path d="M57 62 Q60 67 63 62" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+            <!-- Professional Head & Face Base -->
+            <ellipse class="avatar-face-base" cx="80" cy="82" rx="35" ry="39" fill="url(#profSkinGrad)"/>
 
-            <!-- Mouth -->
-            <path class="avatar-mouth" d="M42 76 Q60 88 78 76" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path class="avatar-mouth-fill" d="M42 76 Q60 88 78 76 Q60 82 42 76" fill="white" opacity="0.15"/>
+            <!-- Ears -->
+            <ellipse cx="43" cy="84" rx="4.5" ry="7.5" fill="#FED7D7"/>
+            <ellipse cx="117" cy="84" rx="4.5" ry="7.5" fill="#FED7D7"/>
+            <!-- Elegant Pearl Earring -->
+            <circle cx="43" cy="93" r="3.5" fill="#F8FAFC"/>
+            <circle cx="117" cy="93" r="3.5" fill="#F8FAFC"/>
 
-            <!-- Cheek blush -->
-            <circle cx="32" cy="68" r="8" fill="white" opacity="0.1"/>
-            <circle cx="88" cy="68" r="8" fill="white" opacity="0.1"/>
+            <!-- EYES (Professional almond shape) -->
+            <g class="avatar-eyes-group">
+              <!-- Left Eye -->
+              <g class="avatar-eye-unit avatar-eye-left-unit" style="transform-origin: 62px 79px">
+                <path d="M 52 79 Q 62 71 72 79 Q 62 87 52 79 Z" fill="#FFFFFF"/>
+                <g class="avatar-pupil-left">
+                  <circle cx="62" cy="79" r="6" fill="url(#profIrisGrad)"/>
+                  <circle cx="62" cy="79.5" r="3.5" fill="#0F172A"/>
+                  <circle cx="59.5" cy="77" r="1.8" fill="#FFFFFF"/>
+                </g>
+                <path class="avatar-eyelash" d="M 50 78 Q 62 70 74 78" stroke="#1A202C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              </g>
+
+              <!-- Right Eye -->
+              <g class="avatar-eye-unit avatar-eye-right-unit" style="transform-origin: 98px 79px">
+                <path d="M 88 79 Q 98 71 108 79 Q 98 87 88 79 Z" fill="#FFFFFF"/>
+                <g class="avatar-pupil-right">
+                  <circle cx="98" cy="79" r="6" fill="url(#profIrisGrad)"/>
+                  <circle cx="98" cy="79.5" r="3.5" fill="#0F172A"/>
+                  <circle cx="95.5" cy="77" r="1.8" fill="#FFFFFF"/>
+                </g>
+                <path class="avatar-eyelash" d="M 86 78 Q 98 70 110 78" stroke="#1A202C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              </g>
+            </g>
+
+            <!-- Eyebrows (Neat & Natural) -->
+            <path class="avatar-brow-left" d="M 51 68 Q 62 64 73 67" stroke="#2D3748" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path class="avatar-brow-right" d="M 87 67 Q 98 64 109 68" stroke="#2D3748" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+            <!-- Nose (Clean professional contour) -->
+            <path class="avatar-nose" d="M 78 88 Q 80 92 83 89" stroke="#CBD5E1" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+
+            <!-- Soft Blush -->
+            <ellipse cx="52" cy="91" rx="7" ry="3.5" fill="#E53E3E" opacity="0.18"/>
+            <ellipse cx="108" cy="91" rx="7" ry="3.5" fill="#E53E3E" opacity="0.18"/>
+
+            <!-- MOUTH (Reassuring Warm Smile) -->
+            <g class="avatar-mouth-wrapper">
+              <path class="avatar-mouth" d="M 66 102 Q 80 114 94 102" stroke="#9B2C2C" stroke-width="2.5" fill="#C53030" stroke-linecap="round"/>
+              <path class="avatar-mouth-teeth" d="M 70 103 Q 80 108 90 103" fill="#FFFFFF" opacity="0.9"/>
+            </g>
+
+            <!-- Front Styled Hair (Neat Professional Frame) -->
+            <g class="avatar-hair-front">
+              <path d="M 36 60 C 34 32 58 22 80 22 C 102 22 126 32 124 60 C 114 38 96 36 80 42 C 64 36 46 38 36 60 Z" fill="url(#profHairGrad)"/>
+              <path class="avatar-hair-strand-l" d="M 38 48 C 34 62 33 80 38 94 C 42 80 43 62 50 52 Z" fill="url(#profHairGrad)"/>
+              <path class="avatar-hair-strand-r" d="M 122 48 C 126 62 127 80 122 94 C 118 80 117 62 110 52 Z" fill="url(#profHairGrad)"/>
+              <path d="M 52 32 Q 80 26 108 32" stroke="#FFFFFF" stroke-width="2" fill="none" opacity="0.25" stroke-linecap="round"/>
+            </g>
+
+            <!-- Professional Corporate Outfit & Collar -->
+            <g class="avatar-outfit">
+              <!-- Inner Top -->
+              <path d="M 68 132 L 80 144 L 92 132 L 80 126 Z" fill="#F8FAFC"/>
+              <!-- Blazer Shoulders -->
+              <path d="M 36 138 C 50 126 64 122 80 128 C 96 122 110 126 124 138 L 138 160 L 22 160 Z" fill="url(#profBlazerGrad)"/>
+              <!-- Lapel Collar -->
+              <path d="M 44 140 L 68 126 L 76 148 L 60 160 Z" fill="url(#profLapelGrad)"/>
+              <path d="M 116 140 L 92 126 L 84 148 L 100 160 Z" fill="url(#profLapelGrad)"/>
+              <!-- Earpiece / Lapel Badge -->
+              <circle cx="68" cy="148" r="3" fill="#2DD4BF"/>
+            </g>
           </svg>
 
           <!-- Thinking dots -->
@@ -197,8 +284,8 @@
       </div>
 
       <div class="cg-panel-title">
-        <h3>CareGuide</h3>
-        <p><span class="cg-status-dot"></span> Ready to help</p>
+        <h3 id="cg-avatar-name">CareGuide Assistant</h3>
+        <p><span class="cg-status-dot"></span> Senior Care Concierge</p>
       </div>
 
       <button class="cg-close-btn" id="cg-close-btn" aria-label="Close CareGuide">✕</button>

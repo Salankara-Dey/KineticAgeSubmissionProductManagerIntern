@@ -246,7 +246,7 @@ const CareGuideWidget = (() => {
     }
 
     msgEl.innerHTML = `
-      <div class="cg-message-avatar">🤖</div>
+      <div class="cg-message-avatar">✨</div>
       <div class="cg-message-bubble">
         ${formattedText}
         ${navBadge}
@@ -260,7 +260,7 @@ const CareGuideWidget = (() => {
     const typingEl = document.createElement('div');
     typingEl.className = 'cg-message cg-message--assistant';
     typingEl.innerHTML = `
-      <div class="cg-message-avatar">🤖</div>
+      <div class="cg-message-avatar">✨</div>
       <div class="cg-typing">
         <div class="dot"></div>
         <div class="dot"></div>
