@@ -1,0 +1,223 @@
+/* =============================================
+   AVATAR FACE — SVG ANIMATIONS
+   ============================================= */
+
+/* Container */
+.avatar-face {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-face svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* =============================================
+   IDLE STATE — Gentle bobbing + blinking
+   ============================================= */
+.avatar-face.state-idle {
+  animation: avatarBob 3s ease-in-out infinite;
+}
+
+.avatar-face.state-idle .avatar-eye-lid {
+  animation: avatarBlink 4s ease-in-out infinite;
+}
+
+@keyframes avatarBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes avatarBlink {
+  0%, 42%, 46%, 100% { transform: scaleY(1); }
+  44% { transform: scaleY(0.05); }
+}
+
+/* =============================================
+   LISTENING STATE — Attentive look + pulse ring
+   ============================================= */
+.avatar-face.state-listening .avatar-pulse-ring {
+  opacity: 1;
+  animation: listeningPulse 1.5s ease-in-out infinite;
+}
+
+.avatar-face.state-listening .avatar-brow-left {
+  animation: browRaiseLeft 0.4s var(--ease-out, ease-out) forwards;
+}
+
+.avatar-face.state-listening .avatar-brow-right {
+  animation: browRaiseRight 0.4s var(--ease-out, ease-out) forwards;
+}
+
+.avatar-face.state-listening .avatar-eye-lid {
+  animation: none;
+}
+
+@keyframes listeningPulse {
+  0% { r: 58; opacity: 0.4; }
+  50% { r: 63; opacity: 0.15; }
+  100% { r: 58; opacity: 0.4; }
+}
+
+@keyframes browRaiseLeft {
+  to { transform: translateY(-3px); }
+}
+
+@keyframes browRaiseRight {
+  to { transform: translateY(-3px); }
+}
+
+/* =============================================
+   SPEAKING STATE — Mouth animation + head nod
+   ============================================= */
+.avatar-face.state-speaking {
+  animation: speakingNod 0.8s ease-in-out infinite;
+}
+
+.avatar-face.state-speaking .avatar-mouth {
+  animation: mouthSpeak 0.35s ease-in-out infinite alternate;
+}
+
+.avatar-face.state-speaking .avatar-mouth-fill {
+  animation: mouthFillSpeak 0.35s ease-in-out infinite alternate;
+}
+
+.avatar-face.state-speaking .avatar-eye-lid {
+  animation: avatarBlink 5s ease-in-out infinite;
+}
+
+@keyframes speakingNod {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(0.5deg); }
+  75% { transform: rotate(-0.5deg); }
+}
+
+@keyframes mouthSpeak {
+  0% { d: path("M42 76 Q60 82 78 76"); }
+  100% { d: path("M44 76 Q60 88 76 76"); }
+}
+
+@keyframes mouthFillSpeak {
+  0% {
+    d: path("M42 76 Q60 82 78 76 Q60 80 42 76");
+    opacity: 0;
+  }
+  100% {
+    d: path("M44 76 Q60 88 76 76 Q60 82 44 76");
+    opacity: 0.2;
+  }
+}
+
+/* =============================================
+   THINKING STATE — Look to side + dots
+   ============================================= */
+.avatar-face.state-thinking .avatar-pupil-left,
+.avatar-face.state-thinking .avatar-pupil-right {
+  animation: thinkingLook 2s ease-in-out infinite;
+}
+
+.avatar-face.state-thinking .avatar-eye-lid {
+  animation: avatarBlink 3s ease-in-out infinite;
+}
+
+@keyframes thinkingLook {
+  0%, 100% { transform: translateX(0); }
+  30% { transform: translateX(3px); }
+  70% { transform: translateX(-2px); }
+}
+
+/* Thinking dots indicator */
+.avatar-thinking-dots {
+  display: none;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 4px;
+}
+
+.avatar-face.state-thinking .avatar-thinking-dots {
+  display: flex;
+}
+
+.avatar-thinking-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary, #2A9D8F);
+  animation: thinkingDotBounce 1.2s ease-in-out infinite;
+}
+
+.avatar-thinking-dots .dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.avatar-thinking-dots .dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes thinkingDotBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* =============================================
+   GREETING STATE — Wave / bounce
+   ============================================= */
+.avatar-face.state-greeting {
+  animation: greetingBounce 0.6s var(--ease-out, ease-out);
+}
+
+@keyframes greetingBounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.08); }
+  60% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+/* =============================================
+   PULSE RING (around avatar for listening)
+   ============================================= */
+.avatar-pulse-ring {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* =============================================
+   GLOBAL AVATAR TRANSITIONS
+   ============================================= */
+.avatar-mouth,
+.avatar-mouth-fill,
+.avatar-brow-left,
+.avatar-brow-right,
+.avatar-pupil-left,
+.avatar-pupil-right {
+  transition: all 0.3s ease;
+}
+
+/* Eye lids (for blinking) — transform origin at center */
+.avatar-eye-lid {
+  transform-origin: center center;
+}
+
+/* =============================================
+   REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .avatar-face,
+  .avatar-face .avatar-eye-lid,
+  .avatar-face .avatar-mouth,
+  .avatar-face .avatar-mouth-fill,
+  .avatar-face .avatar-pulse-ring,
+  .avatar-face .avatar-pupil-left,
+  .avatar-face .avatar-pupil-right,
+  .avatar-face .avatar-brow-left,
+  .avatar-face .avatar-brow-right,
+  .avatar-thinking-dots .dot {
+    animation: none !important;
+  }
+}
